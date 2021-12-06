@@ -1,9 +1,14 @@
 #include <stdio.h>
 #include <string.h>
 
-int* find(char *a,char *b,char mtx[5][5])
+int mod(int a)
 {
-	 int index[4];
+	return a%5;
+}
+
+void find(char a,char b,char mtx[5][5],int index[4])
+{
+	
 	 int i,j;
 	for(i=0;i<5;i++)
 	{
@@ -22,7 +27,7 @@ int* find(char *a,char *b,char mtx[5][5])
 	  }
 	}
 
-	  return index;
+	
 	   
 }
 
@@ -32,7 +37,8 @@ int main()
 	char main_str[200], key[100];
 	int ref[26];
 	char mtx[5][5];
-	int len,slen;
+	int len,slen,index[4];
+	char *encry_str;
 	char *nstr;
 
 	printf("Enter The text  String : ");
@@ -117,6 +123,20 @@ int main()
 
          for(i=0;i<strlen(nstr);i+=2)
 		 {
+             find(nstr[i],nstr[i+1],mtx,index);
+			 if(index[0]==index[2])
+			 {
+				encry_str[c++]=mtx[index[0]][mod(index[1]+1)];
+				encry_str[c++]=mtx[index[0]][mod(index[3]+1)];
+			 }
+			 else if(index[1]==index[3])
+			 {
+				 encry_str[c++]=mtx[mod(index[0]+1)][index[1]];
+				 encry_str[c++]=mtx[mod(index[2]+1)][index[1]];
+				    
+			 }
+			 
+
 
 		 }
 
